@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta http-equiv="Content-Type" charset="UTF-8" content="text/html">	
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width,height=device-height,
+inital-scale=1,maximum-scale=1,user-scalable=0">
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script src="js/HashGoLink.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/myalert.js" type="text/javascript" charset="utf-8"></script>
+<title>我爱中国</title>
+<style type="text/css">
+* {
+    box-sizing: border-box;
+    background-color: #FDE6C6;
+}
+html,body,ul,ol,p,h3 {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-size: 10px;
+}
+@media only screen and (min-width: 375px){
+    html {
+        font-size: 11.75px!important;
+    }
+}
+@media only screen and (min-width: 414px){
+    html {
+        font-size: 13px!important;
+    }
+}
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 15px!important; 
+    }
+}
+@media only screen and (min-width: 569px){
+    html {
+        font-size: 18px!important; 
+    }
+}
+@media only screen and (min-width: 640px){
+    html {
+        font-size: 20px!important; 
+    }
+}
+#lottery{
+	width: 100%;
+	margin: 0 auto;
+	margin-left:0rem;
+	background-color: #FDE6C6;
+}
+#lottery table{
+	margin :0 auto;
+}
+#lottery table td{
+	width: 11rem;
+	height: 11rem;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1.2rem;
+	color: #333;
+	position:relative;
+	border:0.2rem solid #FDE6C6;
+}
+
+
+#lottery table td img{
+	width: 10rem;
+	height: 10rem;
+	/*top:1rem;*/
+	margin:0 auto;
+	display: block;
+}
+
+
+#lottery table td.active{
+	/*color: red;*/
+	border:0.2rem solid red;
+}
+.top{
+	width: 100%;
+	/*height: 100%;*/
+}
+.top2{
+	width: 100%;
+	border-top: 0.5rem solid #7E1192;
+	border-bottom: 0.5rem solid #7E1192;
+}
+p{
+	color:red;
+	display: block;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	text-align:center;
+	font-size:1.4rem;
+	font-family: "SimHei" ;
+
+}
+.num{
+	color:red;
+	display: block;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	text-align:center;
+	font-size:1.4rem;
+	font-family: "SimHei" ;
+
+}
+</style>
+</head>
+<body>
+<div class="1st">
+<div id="lottery">
+	<img class="top" src="images/02.jpg" alt="">
+	<div class="top2"><img class="top" src="images/01.jpg" alt=""></div>
+	
+	<table>
+		<tr><p>您还有<span id="num">3</span>次抽QQ年费的机会！</p></tr>
+		<tr>
+			<td class="lottery-unit lottery-unit-0"><img src="images/11.jpg" alt=""></td>
+			<td class="lottery-unit lottery-unit-1"><img src="images/9.jpg" alt=""></td>
+			<td class="lottery-unit lottery-unit-2"><img src="images/3.jpg" alt=""></td>
+		</tr
+		<tr>
+			<td class="lottery-unit lottery-unit-7"><img src="images/8.jpg" alt=""></td>
+			<!-- <td style="background-color: #FF8C71;"><div><a>开始<br>抽奖</a></div></td> -->
+			<td><a><img src="images/7.jpg" alt=""></a></td>
+			<td class="lottery-unit lottery-unit-3"><img src="images/6.jpg" alt=""></td>
+		</tr>
+		<tr>
+			<td class="lottery-unit lottery-unit-6"><img src="images/4.jpg" alt=""></td>
+			<td class="lottery-unit lottery-unit-5"><img src="images/10.jpg" alt=""></td>
+			<td class="lottery-unit lottery-unit-4"><img src="images/5.jpg" alt=""></td>
+		</tr>
+	</table>
+</div>
+</div>
+
+<script type="text/javascript">
+
+var num1 = 3;
+var lottery={
+	index:-1,	//当前转动到哪个位置
+	count:0,	//总共有多少个位置
+	timer:0,	//setTimeout的ID，用clearTimeout清除
+	speed:500,	//初始转动速度
+	times:0,	//转动次数
+	cycle:50,	//转动基本次数：即至少需要转动多少次再进入抽奖环节
+	prize:-1,	//中奖位置
+	ab:function(i){
+			var api = new link();
+			api.makeurl('fenxiang.html',i);
+		},
+	init:function(id){
+		document.getElementById("num").innerHTML=num1;
+		// console.log(typeof(num1));
+		if (num1 == 1 || num1 == 2|| num1 == 3) {
+			if ($("#"+id).find(".lottery-unit").length>0) {
+				$lottery = $("#"+id);
+				$units = $lottery.find(".lottery-unit");
+				this.obj = $lottery;
+				this.count = $units.length;
+				console.log(this.count);
+				$lottery.find(".lottery-unit-"+this.index).addClass("active");
+			};
+			
+		}else{
+			zdalert('系统提示','分享到空间可获得三次抽奖机会',function(){   
+           
+         	//要回调的方法  
+          	window.location.href="http://qm.qq.com/cgi-bin/qm/qr?k=gal5IvVUwooVlhXdy9Tn6JOl2jxSFlQZ"});  
+		}
+		
+	},
+	roll:function(){
+		if (num1 == 1 || num1 == 2|| num1 == 3) {
+			var index = this.index;
+			var count = this.count;
+			var lottery = this.obj;
+			$(lottery).find(".lottery-unit-"+index).removeClass("active");
+			index += 1;
+			if (index>count-1) {
+				index = 0;
+			};
+			$(lottery).find(".lottery-unit-"+index).addClass("active");
+			this.index=index;
+			return false;
+			
+		}else{
+			return false;
+		}
+		
+		
+	},
+	stop:function(index){
+		this.prize=index;
+		
+		return false;
+	}
+};
+var ka;
+function roll(){
+  if (num1 == 1 || num1 == 2|| num1 == 3) {
+	lottery.times += 1;
+	lottery.roll();
+	if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+		clearTimeout(lottery.timer);
+		lottery.prize=-1;
+		lottery.times=0;
+		click=false;
+	}else{
+		if (lottery.times<lottery.cycle) {
+			lottery.speed -= 10;
+		}else if(lottery.times==lottery.cycle) {
+			var index = Math.random()*(lottery.count)|0;
+			lottery.prize = index;
+			ka = index;
+			num1--;
+			document.getElementById("num").innerHTML=num1;
+			if (ka!="5") {
+
+				setTimeout("lottery.ab(ka)",1000);
+
+			}else{
+				// num1--;
+				// document.getElementById("num").innerHTML=num1;
+			}
+			
+		}else{
+			if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+				lottery.speed += 95;
+			}else{
+				lottery.speed += 20;
+			}
+		}
+		if (lottery.speed<40) {
+			lottery.speed=10;
+			// console.log(lottery.prize);
+			// setTimeout("ab(lottery.prize)",7000);
+		};
+		// console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+		lottery.timer = setTimeout(roll,lottery.speed);
+
+	}
+	
+	return false;	
+  }
+}
+  	
+	
+	
+// console.log(lottery.prize);
+var click=false;
+
+window.onload=function(){
+	// 跳转
+	
+		
+	lottery.init('lottery');
+	
+
+	$("#lottery a").click(function(){
+		if (click) {
+			return false;
+		}else{
+			lottery.speed=200;
+			roll();
+			
+			click=true;
+
+			return false;
+		}
+	});
+	lottery.stop();
+	
+};
+	// 弹出框
+	   
+    // $("#lottery a").bind("click", function () {  
+    //   // $.MsgBox.Alert("消息", "哈哈，添加成功！");  
+  
+    //      zdalert('系统提示','请输入正确数值',function(){   
+           
+    //      //要回调的方法  
+    //       window.location.href="http://www.baidu.com"});  
+       
+    // });  
+   
+</script>
+
+
+<!-- <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "fenxiang.htm";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
+</body>
+</html>
